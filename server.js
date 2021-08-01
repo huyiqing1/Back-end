@@ -34,6 +34,7 @@ app.listen(HTTP_PORT, () => {
 });
 
 app.get("/test/:id", (req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
     let id = req.params.id;
     Order.find({ customer_id: id })
         .exec()

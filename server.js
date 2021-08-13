@@ -1,7 +1,6 @@
 const express = require("express");
 const app = express();
-const path = require("path");
-const HTTP_PORT = process.env.PORT || 8080;
+const HTTP_PORT = process.env.PORT || 8000;
 
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
@@ -27,28 +26,46 @@ const orders = new Schema({
     shipping_id: Number
 });
 
-const Order = mongoose.model("Orders", orders);
+const books = new Schema({
+    title: String,
+    isbn: String,
+    pageCount: Number,
+    publishedDate: String,
+    thumbnailUrl: String,
+    shortDescription: String,
+    longDescription: String,
+    status: String,
+    authors: Array,
+    categories: Array,
+    price: String,
+    stock: Number
+});
+
+const Orders = mongoose.model("Orders", orders);
+const Books = mongoose.model("Books", books);
+
+app.use(function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    next();
+  });
 
 app.listen(HTTP_PORT, () => {
     console.log("Start the server");
 });
 
-app.get("/test/:id", (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+app.get("/orders/customerid/:id", (req, res) => {
     let id = req.params.id;
-    Order.find({ customer_id: id })
+    Orders.find({ customer_id: id })
         .exec()
         .then((orderData) => {
             res.send(orderData);
         });
 });
 
-app.get("/orders/customerid/:id", (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
-    let id = req.params.id;
-    Order.find({ customer_id: id })
-        .exec()
-        .then((orderData) => {
-            res.send(orderData);
-        });
+app.get("/books", (req,res)=>{
+    Books.find({})
+    .exec()
+    .then((bookData)=>{
+        res.send(bookData);
+    });
 });

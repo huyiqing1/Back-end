@@ -26,7 +26,7 @@ const orders = new Schema({
     order_date: String,
     order_status: String,
     phone_number: String,
-    shipping_id: Number
+    products: Array
 });
 
 const books = new Schema({

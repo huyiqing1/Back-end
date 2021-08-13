@@ -132,25 +132,25 @@ app.get("/orders/orderid/:id", (req, res) => {
 });
 
 //user login
-app.post("/login", (req, res) => {
-    let email = req.body.email;
-    let password = req.body.password;
+// app.post("/login", (req, res) => {
+//     let email = req.body.email;
+//     let password = req.body.password;
 
-    Customers.find({
-        email: email
-    })
-        .exec()
-        .then((customerData) => {
-            if (customerData.length == 0) {
-                res.send(false);
-            }
-            else if (bcrypt.compareSync(password, customerData[0].password)) {
-                res.send(customerData);
-            } else {
-                res.send(false);
-            }
-        });
-});
+//     Customers.find({
+//         email: email
+//     })
+//         .exec()
+//         .then((customerData) => {
+//             if (customerData.length == 0) {
+//                 res.send(false);
+//             }
+//             else if (bcrypt.compareSync(password, customerData[0].password)) {
+//                 res.send(customerData);
+//             } else {
+//                 res.send(false);
+//             }
+//         });
+// });
 
 //user register
 // app.post("/register", (req, res) => {

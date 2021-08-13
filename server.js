@@ -64,6 +64,8 @@ app.use(function (req, res, next) {
     next();
 });
 
+app.
+
 app.listen(HTTP_PORT, () => {
     console.log("Start the server");
 });
@@ -78,9 +80,9 @@ app.get("/books", (req, res) => {
 });
 
 //get book by book isbn
-app.get("/book/:isbn", (req, res) => {
-    let isbn = req.params.isbn;
-    Books.find({ isbn: isbn })
+app.get("/book/:id", (req, res) => {
+    let id = req.params.id;
+    Books.find({ id: id })
         .exec()
         .then((bookData) => {
             res.send(bookData);
@@ -123,4 +125,10 @@ app.get("/orders/orderid/:id", (req, res) => {
         .then((orderData) => {
             res.send(orderData);
         });
+});
+
+//login
+app.post("/login", (req,res)=>{
+    const formData = req.body;
+    console.log(formData);
 });

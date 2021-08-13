@@ -1,7 +1,7 @@
 {
   "name": "back-end",
   "version": "1.0.0",
-  "description": "",
+  "description": "Back-end for CAP805 project",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -14,5 +14,14 @@
     "express": "^4.17.1",
     "mongoose": "^5.13.3",
     "path": "^0.12.7"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/huyiqing1/Back-end.git"
+  },
+  "bugs": {
+    "url": "https://github.com/huyiqing1/Back-end/issues"
+  },
+  "homepage": "https://github.com/huyiqing1/Back-end#readme"
 }

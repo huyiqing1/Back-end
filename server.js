@@ -68,6 +68,44 @@ app.listen(HTTP_PORT, () => {
     console.log("Start the server");
 });
 
+//get all books
+app.get("/books", (req, res) => {
+    Books.find({})
+        .exec()
+        .then((bookData) => {
+            res.send(bookData);
+        });
+});
+
+//get book by book isbn
+app.get("/book/:isbn", (req, res) => {
+    let isbn = req.params.isbn;
+    Books.find({ isbn: isbn })
+        .exec()
+        .then((bookData) => {
+            res.send(bookData);
+        });
+});
+
+//get all customers
+app.get("/customers", (req, res) => {
+    Customers.find({})
+        .exec()
+        .then((customerData) => {
+            res.send(customerData);
+        });
+});
+
+//get all orders
+app.get("/orders", (req, res) => {
+    Orders.find({})
+        .exec()
+        .then((orderData) => {
+            res.send(orderData);
+        });
+});
+
+//get orders by customer id
 app.get("/orders/customerid/:id", (req, res) => {
     let id = req.params.id;
     Orders.find({ customer_id: id })
@@ -77,18 +115,12 @@ app.get("/orders/customerid/:id", (req, res) => {
         });
 });
 
-app.get("/books", (req, res) => {
-    Books.find({})
+//get orders by order id
+app.get("/orders/orderid/:id", (req, res) => {
+    let id = req.params.id;
+    Orders.find({ order_id: id })
         .exec()
-        .then((bookData) => {
-            res.send(bookData);
-        });
-});
-
-app.get("/customers", (req, res) => {
-    Customers.find({})
-        .exec()
-        .then((customerData) => {
-            res.send(customerData);
+        .then((orderData) => {
+            res.send(orderData);
         });
 });

@@ -27,6 +27,7 @@ const orders = new Schema({
 });
 
 const books = new Schema({
+    id: Number,
     title: String,
     isbn: String,
     pageCount: Number,
@@ -64,7 +65,7 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.
+app.use(express.json());
 
 app.listen(HTTP_PORT, () => {
     console.log("Start the server");

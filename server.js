@@ -41,13 +41,28 @@ const books = new Schema({
     stock: Number
 });
 
+const customers = new Schema({
+    customer_id: Number,
+    first_name: String,
+    last_name: String,
+    middle_name: String,
+    email: String,
+    password: String,
+    phone_number: String,
+    shipping_address: String,
+    shipping_postal_code: String,
+    billing_address: String,
+    billing_postal_code: String
+})
+
 const Orders = mongoose.model("Orders", orders);
 const Books = mongoose.model("Books", books);
+const Customers = mongoose.model("Customers", customers);
 
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     next();
-  });
+});
 
 app.listen(HTTP_PORT, () => {
     console.log("Start the server");
@@ -62,10 +77,18 @@ app.get("/orders/customerid/:id", (req, res) => {
         });
 });
 
-app.get("/books", (req,res)=>{
+app.get("/books", (req, res) => {
     Books.find({})
-    .exec()
-    .then((bookData)=>{
-        res.send(bookData);
-    });
+        .exec()
+        .then((bookData) => {
+            res.send(bookData);
+        });
+});
+
+app.get("/customers", (req, res) => {
+    Customers.find({})
+        .exec()
+        .then((customerData) => {
+            res.send(customerData);
+        });
 });

@@ -153,31 +153,31 @@ app.post("/login", (req, res) => {
 });
 
 //user register
-app.post("/register", (req, res) => {
-    let email = req.body.email;
-    let password = req.body.password;
-    let hashedPassword = bcrypt.hashSync(password, saltRounds);
+// app.post("/register", (req, res) => {
+//     let email = req.body.email;
+//     let password = req.body.password;
+//     let hashedPassword = bcrypt.hashSync(password, saltRounds);
 
-    const newCustomer = new Customers({
-        email: email,
-        password: hashedPassword
-    })
+//     const newCustomer = new Customers({
+//         email: email,
+//         password: hashedPassword
+//     })
 
-    Customers.find({
-        email: email
-    })
-        .exec()
-        .then((customerData) => {
-            if (customerData.length == 1) {
-                res.send(false)
-            } else {
-                newCustomer.save((err) => {
-                    if (err) {
-                        res.send(err);
-                    } else {
-                        res.send(true);
-                    }
-                });
-            }
-        });
-});
+//     Customers.find({
+//         email: email
+//     })
+//         .exec()
+//         .then((customerData) => {
+//             if (customerData.length == 1) {
+//                 res.send(false)
+//             } else {
+//                 newCustomer.save((err) => {
+//                     if (err) {
+//                         res.send(err);
+//                     } else {
+//                         res.send(true);
+//                     }
+//                 });
+//             }
+//         });
+// });

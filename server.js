@@ -5,7 +5,7 @@ const HTTP_PORT = process.env.PORT || 8000;
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const saltRounds = 10;
 
 mongoose.connect("mongodb+srv://clintmacdonald:macdonald12345@cluster0.kn8zs.mongodb.net/Cap805?retryWrites=true&w=majority");
@@ -132,52 +132,52 @@ app.get("/orders/orderid/:id", (req, res) => {
 });
 
 //user login
-// app.post("/login", (req, res) => {
-//     let email = req.body.email;
-//     let password = req.body.password;
+app.post("/login", (req, res) => {
+    let email = req.body.email;
+    let password = req.body.password;
 
-//     Customers.find({
-//         email: email
-//     })
-//         .exec()
-//         .then((customerData) => {
-//             if (customerData.length == 0) {
-//                 res.send(false);
-//             }
-//             else if (bcrypt.compareSync(password, customerData[0].password)) {
-//                 res.send(customerData);
-//             } else {
-//                 res.send(false);
-//             }
-//         });
-// });
+    Customers.find({
+        email: email
+    })
+        .exec()
+        .then((customerData) => {
+            if (customerData.length == 0) {
+                res.send(false);
+            }
+            else if (bcrypt.compareSync(password, customerData[0].password)) {
+                res.send(customerData);
+            } else {
+                res.send(false);
+            }
+        });
+});
 
 //user register
-// app.post("/register", (req, res) => {
-//     let email = req.body.email;
-//     let password = req.body.password;
-//     let hashedPassword = bcrypt.hashSync(password, saltRounds);
+app.post("/register", (req, res) => {
+    let email = req.body.email;
+    let password = req.body.password;
+    let hashedPassword = bcrypt.hashSync(password, saltRounds);
 
-//     const newCustomer = new Customers({
-//         email: email,
-//         password: hashedPassword
-//     })
+    const newCustomer = new Customers({
+        email: email,
+        password: hashedPassword
+    })
 
-//     Customers.find({
-//         email: email
-//     })
-//         .exec()
-//         .then((customerData) => {
-//             if (customerData.length == 1) {
-//                 res.send(false)
-//             } else {
-//                 newCustomer.save((err) => {
-//                     if (err) {
-//                         res.send(err);
-//                     } else {
-//                         res.send(true);
-//                     }
-//                 });
-//             }
-//         });
-// });
+    Customers.find({
+        email: email
+    })
+        .exec()
+        .then((customerData) => {
+            if (customerData.length == 1) {
+                res.send(false)
+            } else {
+                newCustomer.save((err) => {
+                    if (err) {
+                        res.send(err);
+                    } else {
+                        res.send(true);
+                    }
+                });
+            }
+        });
+});

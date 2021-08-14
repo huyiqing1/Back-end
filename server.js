@@ -111,6 +111,16 @@ app.get("/orders", (req, res) => {
         });
 });
 
+//get order by order id
+app.get("/order/:id", (req, res) => {
+    let id = req.params.id;
+    Orders.findOne({ order_id: id })
+        .exec()
+        .then((orderData) => {
+            res.send(orderData);
+        });
+});
+
 //get orders by customer id
 app.get("/orders/customerid/:id", (req, res) => {
     let id = req.params.id;
